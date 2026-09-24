@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Meridian Grid</title>
+
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>Meridian Grid</h1>
+        <p>City Watch · Live Intelligence</p>
+    </div>
+
+    <div class="live">
+        ● LIVE
+    </div>
+</header>
+
+<div class="dashboard">
+
+    <!-- LEFT PANEL -->
+    <aside>
+
+        <div class="sources">
+            <span>Transit</span>
+            <span>Air Sensor</span>
+            <span>Road</span>
+            <span>Public</span>
+        </div>
+
+        <h2>What's happening</h2>
+
+        <div class="main-alert">
+            <h3>Rising PM2.5 near I-5</h3>
+
+            <p>
+                Particles climbed 61% since 4:10 PM,
+                lining up with slow traffic and a nearby burn alert.
+            </p>
+        </div>
+
+        <div class="event">
+            <b>Line 5 delays</b>
+            <p>Headways widened to 18 min.</p>
+        </div>
+
+        <div class="event">
+            <b>Road surface steady</b>
+            <p>
+                Sensor 12 shows no vibration spike,
+                so the road itself is not the trigger.
+            </p>
+        </div>
+
+        <h2>Why it matters</h2>
+
+        <div class="reason">
+            Transit gaps are driving idling, which is pushing
+            air quality toward unhealthy levels.
+        </div>
+
+        <!-- AIR -->
+        <div class="card">
+
+            <div class="card-title">
+                <span>Air quality</span>
+                <span class="danger">Unhealthy</span>
+            </div>
+
+            <h1 id="aqi">138 AQI</h1>
+
+            <p>PM2.5 · <span id="pm25">34</span> µg/m³ · rising</p>
+
+        </div>
+
+        <!-- TRANSIT -->
+        <div class="card">
+
+            <div class="card-title">
+                <span>Transit feed</span>
+                <span class="warning">Delayed</span>
+            </div>
+
+            <h1 id="delay">18 min</h1>
+
+            <p>Average gap</p>
+
+            <hr>
+
+            <p>Line 5 <b>+14 min</b></p>
+            <p>Line 2 <b>On time</b></p>
+            <p>Line 8 <b>+6 min</b></p>
+
+        </div>
+
+        <!-- ROAD -->
+        <div class="card">
+
+            <div class="card-title">
+                <span>Road sensors</span>
+                <span class="normal">Normal</span>
+            </div>
+
+            <p>Bridge 4 — stable</p>
+            <p>Sensor 12 — stable</p>
+            <p>Tunnel 7 — check</p>
+
+            <small>
+                8 sensors reporting · 97% fresh
+            </small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAP -->
+    <main>
+
+        <div class="map-header">
+
+    <div>
+        <h2>Live city map</h2>
+        <p>Unified view · updated just now</p>
+    </div>
+
+    <div class="city-search">
+        <input
+            type="text"
+            id="cityInput"
+            placeholder="Search city..."
+            onkeydown="if(event.key === 'Enter') searchCity()"
+        >
+
+        <button onclick="searchCity()">
+            🔍 Search
+        </button>
+
+        <button onclick="refreshData()">
+            ↻ Refresh
+        </button>
+    </div>
+
+</div>
+
+        <div id="map"></div>
+
+    </main>
+
+</div>
+
+
+<!-- EVENT LOG -->
+
+<section class="event-section">
+
+    <h2>Unified event log</h2>
+
+    <p>
+        All sources normalized into one common format
+    </p>
+
+    <div class="filters">
+
+        <button onclick="filterEvents('all')">All</button>
+        <button onclick="filterEvents('air')">Air</button>
+        <button onclick="filterEvents('transit')">Transit</button>
+        <button onclick="filterEvents('road')">Road</button>
+        <button onclick="filterEvents('public')">Public</button>
+
+    </div>
+
+    <div id="eventLog">
+
+        <div class="log air">
+            <b>4:34 PM</b>
+            PM2.5 crossed 34 µg/m³
+            <span>ALERT</span>
+        </div>
+
+        <div class="log transit">
+            <b>4:28 PM</b>
+            Line 5 headway reached 18 min
+            <span>WATCH</span>
+        </div>
+
+        <div class="log road">
+            <b>4:22 PM</b>
+            Tunnel 7 vibration +0.4g
+            <span>NORMAL</span>
+        </div>
+
+        <div class="log public">
+            <b>4:10 PM</b>
+            Burn alert reports increased
+            <span>WATCH</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="connection">
+
+    <h2>Connection detected</h2>
+
+    <p>
+        Line 5 delays began 24 min before PM2.5 crossed 25.
+        Idling traffic is the likely bridge between the two problems.
+    </p>
+
+    <div class="confidence">
+        Confidence <strong>82%</strong>
+    </div>
+
+    <button onclick="acknowledge()">
+        Acknowledge
+    </button>
+
+    <button onclick="showTimeline()">
+        View timeline
+    </button>
+
+</section>
+
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script src="script.js"></script>
+
+
+</body>
+</html>
+
